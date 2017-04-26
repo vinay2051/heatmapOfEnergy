@@ -1,0 +1,2216 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Apartment World</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <style>
+            html,body{
+                height: 100%;
+                overflow: hidden;
+                background-color: rgb(38,38,38);
+            }
+            #blocker{
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                height: 100%;
+            }
+            button{
+                border-radius: 4px;
+                height: 25px;
+                margin-top: 20px;
+                width: 100px;
+                margin-left: 10px;
+            }
+            
+            .buttons{
+                position: relative;
+                width: 100px;
+                height: 100%;
+                z-index: 1;
+            }
+            .wall{
+
+            }
+            .f1w{
+                position: absolute;
+                background-color: rgba(96, 96, 96, 1);
+            }
+            .f2w{
+                position: absolute;
+                background-color: rgba(96, 96, 96, 1);
+            }
+            .f3w{
+                position: absolute;
+                background-color: rgba(96, 96, 96, 1);
+            }
+            .f4w{
+                position: absolute;
+                background-color: rgba(96, 96, 96, 1);
+            }
+            .f5w{
+                position: absolute;
+                background-color: rgba(96, 96, 96, 1);
+            }
+            .f6w{
+                position: absolute;
+                background-color: rgba(96, 96, 96, 1);
+            }
+            
+            
+        </style>
+    </head>
+    <body>
+       <script src = "jquery.min.js"></script>
+        <script src="three.js"></script>
+        <script src="TrackballControls.js"></script>
+        <script src="CSS3DRenderer.js"></script>
+        <script src="greensock/TweenMax.min.js"></script>
+        <script src="greensock/TimelineMax.min.js"></script>
+        
+        <div id="container">
+            
+        <div id="blocker">
+           
+        </div>
+        <div class="buttons">
+            <button id="floor5">floor5</button>
+            <button id="floor4">floor4</button>
+            <button id="floor3">floor3</button>
+            <button id="floor2">floor2</button>
+            <button id="floor1">floor1</button>
+            <button id="ground">ground</button>
+            <button id="apartment">Apartment B</button>
+            <button id="b12">B-12</button>
+            </div>
+        </div>
+        <script>
+            
+            var camera, scene, renderer;
+            
+            var container = document.getElementById('container');
+            
+            
+            var floor = function(id, position, rotation){
+                var div = document.createElement('div');
+                div.style.width = '578px';
+                div.style.height = '395px';
+                
+                var iframe = document.createElement('iframe');
+                iframe.style.width = '576px';
+                iframe.style.height = '390px';
+                iframe.style.border = '0px';
+                iframe.src = id;
+                
+                div.appendChild(iframe);
+                
+                var object = new THREE.CSS3DObject(div);
+
+                
+                object.position.x = position.x;
+                object.position.y = position.y;
+                object.position.z = position.z;
+                object.rotation.x = rotation.x;
+                object.rotation.y = rotation.y;
+                object.rotation.z = rotation.z; 
+                
+                return object;
+            };
+            
+            var f1w = function( width, height, position, rotation){
+    
+                
+                var wallDiv = document.createElement('div');
+                wallDiv.style.width = width;
+                wallDiv.style.height = height;
+                wallDiv.style.border = '0px';
+                wallDiv.setAttribute("class", "f1w wall");
+                
+                var object = new THREE.CSS3DObject(wallDiv);
+
+                
+                object.position.x = position.x;
+                object.position.y = position.y;
+                object.position.z = position.z;
+                object.rotation.x = rotation.x;
+                object.rotation.y = rotation.y;
+                object.rotation.z = rotation.z; 
+                
+                return object;
+            };
+            
+            var f2w = function( width, height, position, rotation){
+    
+                
+                var wallDiv = document.createElement('div');
+                wallDiv.style.width = width;
+                wallDiv.style.height = height;
+                wallDiv.style.border = '0px';
+                wallDiv.setAttribute("class", "f2w wall");
+                
+                
+                var object = new THREE.CSS3DObject(wallDiv);
+
+                
+                object.position.x = position.x;
+                object.position.y = position.y;
+                object.position.z = position.z;
+                object.rotation.x = rotation.x;
+                object.rotation.y = rotation.y;
+                object.rotation.z = rotation.z; 
+                
+                return object;
+            };
+            var f3w = function( width, height, position, rotation){
+    
+                
+                var wallDiv = document.createElement('div');
+                wallDiv.style.width = width;
+                wallDiv.style.height = height;
+                wallDiv.style.border = '0px';
+                wallDiv.setAttribute("class", "f3w wall");
+                
+                
+                var object = new THREE.CSS3DObject(wallDiv);
+
+                
+                object.position.x = position.x;
+                object.position.y = position.y;
+                object.position.z = position.z;
+                object.rotation.x = rotation.x;
+                object.rotation.y = rotation.y;
+                object.rotation.z = rotation.z; 
+                
+                return object;
+            };
+            var f4w = function( width, height, position, rotation){
+    
+                
+                var wallDiv = document.createElement('div');
+                wallDiv.style.width = width;
+                wallDiv.style.height = height;
+                wallDiv.style.border = '0px';
+                wallDiv.setAttribute("class", "f4w wall");
+                
+                
+                var object = new THREE.CSS3DObject(wallDiv);
+
+                
+                object.position.x = position.x;
+                object.position.y = position.y;
+                object.position.z = position.z;
+                object.rotation.x = rotation.x;
+                object.rotation.y = rotation.y;
+                object.rotation.z = rotation.z; 
+                
+                return object;
+            };
+            var f5w = function( width, height, position, rotation){
+    
+                
+                var wallDiv = document.createElement('div');
+                wallDiv.style.width = width;
+                wallDiv.style.height = height;
+                wallDiv.style.border = '0px';
+                wallDiv.setAttribute("class", "f5w wall");
+                
+                
+                var object = new THREE.CSS3DObject(wallDiv);
+
+                
+                object.position.x = position.x;
+                object.position.y = position.y;
+                object.position.z = position.z;
+                object.rotation.x = rotation.x;
+                object.rotation.y = rotation.y;
+                object.rotation.z = rotation.z; 
+                
+                return object;
+            };
+            var f6w = function( width, height, position, rotation){
+    
+                
+                var wallDiv = document.createElement('div');
+                wallDiv.style.width = width;
+                wallDiv.style.height = height;
+                wallDiv.style.border = '0px';
+                wallDiv.setAttribute("class", "f6w wall");
+                
+                
+                var object = new THREE.CSS3DObject(wallDiv);
+
+                
+                object.position.x = position.x;
+                object.position.y = position.y;
+                object.position.z = position.z;
+                object.rotation.x = rotation.x;
+                object.rotation.y = rotation.y;
+                object.rotation.z = rotation.z; 
+                
+                return object;
+            };
+            
+            
+              init();
+            animate();
+            
+
+            
+            function init(){
+                
+                
+              var floor5 = document.getElementById('floor5');
+                var floor4 = document.getElementById('floor4');
+                var floor3 = document.getElementById('floor3');
+                var floor2 = document.getElementById('floor2');
+                var floor1 = document.getElementById('floor1');
+                var ground = document.getElementById('ground');
+                var apart = document.getElementById('apartment');
+                var b12 = document.getElementById('b12');
+    
+                b12.addEventListener('click',function(event){
+                    var t = new TimelineMax();
+                t.to(camera.position,1,{x:0,y:0,z:12000,onUpdate:function(){
+                    camera.updateProjectionMatrix();
+                    var wall = document.getElementsByClassName('wall');
+                for (var i = 0; i < wall.length; i++) {
+                wall[i].style.backgroundColor= "rgba(96,96,96,1)";
+                    }
+                }},0);
+                t.to(camera.position,1,{x:-90,y:-120,z:360,onUpdate:function(){
+                    camera.updateProjectionMatrix();
+                    var wall = document.getElementsByClassName('f2w');
+                for (var i = 0; i < wall.length; i++) {
+                wall[i].style.backgroundColor= "rgba(1,1,1,0)" ;
+                    }
+                }},1);
+                });
+
+            floor5.addEventListener('click', function(event) {
+                
+                var t = new TimelineMax();
+                t.to(camera.position,1,{x:0,y:0,z:12000,onUpdate:function(){
+                    camera.updateProjectionMatrix();
+                    var wall = document.getElementsByClassName('wall');
+                for (var i = 0; i < wall.length; i++) {
+                wall[i].style.backgroundColor= "rgba(96,96,96,1)";
+                    }
+                }},0);
+                t.to(camera.position,1,{x:0,y:0,z:1450,onUpdate:function(){
+                    camera.updateProjectionMatrix();
+                    
+                    var wall = document.getElementsByClassName('f6w');
+                for (var i = 0; i < wall.length; i++) {
+                wall[i].style.backgroundColor= "rgba(1,1,1,0)" ;
+                    }
+                }},1);
+                });
+                
+                  floor4.addEventListener('click', function(event) {
+                      
+                    
+                var t = new TimelineMax();
+                t.to(camera.position,1,{x:0,y:0,z:12000,onUpdate:function(){
+                    camera.updateProjectionMatrix();
+                    var wall = document.getElementsByClassName('wall');
+                for (var i = 0; i < wall.length; i++) {
+                wall[i].style.backgroundColor= "rgba(96,96,96,1)";
+                    }
+                }},0);
+                t.to(camera.position,1,{x:0,y:0,z:1200,onUpdate:function(){
+                    camera.updateProjectionMatrix();
+                    var wall = document.getElementsByClassName('f5w');
+                for (var i = 0; i < wall.length; i++) {
+                wall[i].style.backgroundColor= "rgba(1,1,1,0)" ;
+                    }
+                }},1);
+                });
+                
+                  floor3.addEventListener('click', function(event) {
+                      
+                var t = new TimelineMax();
+                t.to(camera.position,1,{x:0,y:0,z:12000,onUpdate:function(){
+                    camera.updateProjectionMatrix();
+                    var wall = document.getElementsByClassName('wall');
+                for (var i = 0; i < wall.length; i++) {
+                wall[i].style.backgroundColor= "rgba(96,96,96,1)";
+                    }
+                }},0);
+                t.to(camera.position,1,{x:0,y:0,z:950,onUpdate:function(){
+                    camera.updateProjectionMatrix();
+                    var wall = document.getElementsByClassName('f4w');
+                for (var i = 0; i < wall.length; i++) {
+                wall[i].style.backgroundColor= "rgba(1,1,1,0)" ;
+                    }
+                }},1);
+                });
+                
+                  floor2.addEventListener('click', function(event) {
+                    
+                
+                var t = new TimelineMax();
+                t.to(camera.position,1,{x:0,y:0,z:12000,onUpdate:function(){
+                    camera.updateProjectionMatrix();
+                    var wall = document.getElementsByClassName('wall');
+                for (var i = 0; i < wall.length; i++) {
+                wall[i].style.backgroundColor= "rgba(96,96,96,1)";
+                    }
+                }},0);
+                t.to(camera.position,1,{x:0,y:0,z:700,onUpdate:function(){
+                    camera.updateProjectionMatrix();
+                    
+                    var wall = document.getElementsByClassName('f3w');
+                for (var i = 0; i < wall.length; i++) {
+                wall[i].style.backgroundColor= "rgba(1,1,1,0)" ;
+                    }
+                }},1);
+                });
+                
+                  floor1.addEventListener('click', function(event) {
+                      
+                var t = new TimelineMax();
+                t.to(camera.position,1,{x:0,y:0,z:12000,onUpdate:function(){
+                    camera.updateProjectionMatrix();
+                    var wall = document.getElementsByClassName('wall');
+                for (var i = 0; i < wall.length; i++) {
+                wall[i].style.backgroundColor= "rgba(96,96,96,1)";
+                    }
+                }},0);
+                t.to(camera.position,1,{x:0,y:0,z:450,onUpdate:function(){
+                    camera.updateProjectionMatrix();
+                    var wall = document.getElementsByClassName('f2w');
+                for (var i = 0; i < wall.length; i++) {
+                wall[i].style.backgroundColor= "rgba(1,1,1,0)" ;
+                    }
+                }},1);
+                });
+                
+                ground.addEventListener('click', function(event) {
+                
+                var t = new TimelineMax();
+                t.to(camera.position,1,{x:0,y:0,z:12000,onUpdate:function(){
+                    camera.updateProjectionMatrix();
+                    var wall = document.getElementsByClassName('wall');
+                for (var i = 0; i < wall.length; i++) {
+                wall[i].style.backgroundColor= "rgba(96,96,96,1)";
+                    }
+                }},0);
+                t.to(camera.position,1,{x:0,y:0,z:200,onUpdate:function(){
+                    camera.updateProjectionMatrix();
+                    var wall = document.getElementsByClassName('f1w');
+                for (var i = 0; i < wall.length; i++) {
+                wall[i].style.backgroundColor= "rgba(1,1,1,0)" ;
+                    }
+                }},1);
+                });
+                
+                apart.addEventListener('click', function(event) {
+                    
+                var t = new TimelineMax();
+                t.to(camera.position,2,{x:0,y:-15000,z:5000,onUpdate:function(){
+                    camera.updateProjectionMatrix();
+                    var wall = document.getElementsByClassName('wall');
+                for (var i = 0; i < wall.length; i++) {
+                wall[i].style.backgroundColor= "rgba(96,96,96,1)";
+                    }
+                }},0);
+                });
+
+            
+                
+                
+                camera = new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 1500, 2000);
+                camera.position.set( 0, -15000, 5000);
+                
+                
+//                camera.position.set(0,-1500,0);
+//                camera.down = new THREE.Vector3(0,0,1);
+//                camera.lookAt(new THREE.Vector3(0,0,0));
+                
+                scene = new THREE.Scene();
+                
+                renderer = new THREE.CSS3DRenderer();                renderer.setSize( window.innerWidth, window.innerHeight);
+                renderer.domElement.style.position = 'absolute';
+                renderer.domElement.style.top = 0;
+                
+                container.appendChild(renderer.domElement);
+                
+                var x = 0, y = 0, z = 0,h='250px',h1 = 1000;
+                
+                var flo = new THREE.Group();
+                
+                
+                flo.add(new floor( 'map.html', new THREE.Vector3( x, y, z), new THREE.Vector3( x, y, z)));
+                flo.add(new floor( 'floor1.html', new THREE.Vector3( x, y, z+h1/4), new THREE.Vector3( x, y, z)));
+                
+                flo.add(new floor( 'map.html', new THREE.Vector3( x, y, z+2*h1/4), new THREE.Vector3( x, y, z)));
+                flo.add(new floor( 'map.html', new THREE.Vector3( x, y, z+3*h1/4), new THREE.Vector3( x, y, z)));
+                
+                flo.add(new floor( 'map.html', new THREE.Vector3( x, y, z+4*h1/4), new THREE.Vector3( x, y, z)));
+                flo.add(new floor( 'map.html', new THREE.Vector3( x, y, z+5*h1/4), new THREE.Vector3( x, y, z)));
+                
+                flo.add(new floor( 'blank.html', new THREE.Vector3( x, y, z+6*h1/4), new THREE.Vector3( x, y, z)));
+                
+                scene.add(flo);
+                
+                
+                var floor1Wals = new THREE.Group();
+                floor1Wals.name = "floor1Wals"
+                
+                floor1Wals.add(new f1w(h, '78px',new THREE.Vector3(  x-276.5, y+25.5, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                
+                floor1Wals.add(new f1w(h, '34px',new THREE.Vector3(  x-276.5+17, y+25.5+38.5, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '36px',new THREE.Vector3(  x-276.5+18, y+25.5+38.5-77.5, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '58px',new THREE.Vector3(  x-273+59, y+25.5+38.5+13, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '13px',new THREE.Vector3(  x-276.5+34, y+70.5, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '10px',new THREE.Vector3(  x-277+36, y-8, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '20.5px',new THREE.Vector3(  x-273+41, y-3, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '27px',new THREE.Vector3(  x-277+55.5, y-16.5, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '70px',new THREE.Vector3(  x-186.5, y-30, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+//                other room
+                floor1Wals.add(new f1w(h, '77.5px',new THREE.Vector3(  x-276.5+100.5-10, y-80.5, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '34px',new THREE.Vector3(  x-186+17, y-41.5, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '36px',new THREE.Vector3(  x-168, y-119, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+            
+                
+                floor1Wals.add(new f1w(h, '13px',new THREE.Vector3(  x-150, y-35.5, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                
+                floor1Wals.add(new f1w(h, '10px',new THREE.Vector3(  x-150, y-114, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '20.5px',new THREE.Vector3(  x-140, y-109, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                
+                floor1Wals.add(new f1w(h, '27px',new THREE.Vector3(  x-130, y-122.5, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '85px',new THREE.Vector3(  x-87.5, y-136, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                 floor1Wals.add(new f1w(h, '54.5px',new THREE.Vector3(  x-45, y-163, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '91px',new THREE.Vector3(  x+0.5, y-190, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                
+                //                other room
+                floor1Wals.add(new f1w(h, '77px',new THREE.Vector3(  x-110.5, y+185.3, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '40.5px',new THREE.Vector3(  x-72, y+165, z+125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+            
+                floor1Wals.add(new f1w(h, '40.5px',new THREE.Vector3(  x-149, y+165, z+125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '19px',new THREE.Vector3(  x-158, y+146, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '10px',new THREE.Vector3(  x-77.5, y+145, z+125), new THREE.Vector3(  90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '20.5px',new THREE.Vector3(  x-158, y+92, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '31px',new THREE.Vector3(  x-67.8, y+128, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '31px',new THREE.Vector3(  x-67.8, y+43, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '54px',new THREE.Vector3(  x-167.5, y+119, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '85.5px',new THREE.Vector3(  x-53, y+85, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '18px',new THREE.Vector3(  x-82, y+137, z+125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '20px',new THREE.Vector3(  x-82.3, y+33, z+125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '88px',new THREE.Vector3(  x-23, y+42.5, z+125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '46.5px',new THREE.Vector3(  x+0.5, y+86, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '65px',new THREE.Vector3(  x-53, y+11, z+125), new THREE.Vector3( 90*Math.PI/180,157.5*Math.PI/180, 90*Math.PI/180)));
+        
+                floor1Wals.add(new f1w(h, '15px',new THREE.Vector3(  x-147, y+85.5, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '16px',new THREE.Vector3(  x-185, y+69, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '14.5px',new THREE.Vector3(  x-179, y+61, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '12px',new THREE.Vector3(  x-153, y+61, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '13px',new THREE.Vector3(  x-165, y+54, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '11px',new THREE.Vector3(  x-142, y+71.5, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '11px',new THREE.Vector3(  x-142, y+78.5, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '7px',new THREE.Vector3(  x-137, y+75, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '15px',new THREE.Vector3(  x-147.5, y+64, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '7px',new THREE.Vector3(  x-159, y+57.5, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '7px',new THREE.Vector3(  x-171.5, y+57.5, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '19px',new THREE.Vector3(  x-138, y+56.5, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                 floor1Wals.add(new f1w(h, '19px',new THREE.Vector3(  x-138, y+42, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '14px',new THREE.Vector3(  x-147.5, y+49, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '14px',new THREE.Vector3(  x-128.5, y+49, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '25px',new THREE.Vector3(  x-116, y+42.5, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '29px',new THREE.Vector3(  x-118.5, y+24, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '18px',new THREE.Vector3(  x-133, y+33, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '18px',new THREE.Vector3(  x-104, y+33, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '80px',new THREE.Vector3(  x-53, y-15.5, z+125), new THREE.Vector3( 90*Math.PI/180,158.5*Math.PI/180, 90*Math.PI/180)));
+                
+                
+                floor1Wals.add(new f1w(h, '45px',new THREE.Vector3(  x-112, y-1, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '42px',new THREE.Vector3(  x-113.5, y-28.5, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '13px',new THREE.Vector3(  x-86, y-44, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+        
+                floor1Wals.add(new f1w(h, '13.5px',new THREE.Vector3(  x-62.25, y-44.5, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //
+                floor1Wals.add(new f1w(h, '11px',new THREE.Vector3(  x-74, y-52, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '14px',new THREE.Vector3(  x-48.25, y-63, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '25px',new THREE.Vector3(  x-28.65, y-79.5, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '27.5px',new THREE.Vector3(  x-134.5, y-14.75, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '15.5px',new THREE.Vector3(  x-92.5, y-36.25, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '8px',new THREE.Vector3(  x-79.5, y-48, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '8px',new THREE.Vector3(  x-68.5, y-48, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '18.5px',new THREE.Vector3(  x-55.25, y-53.75, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '17px',new THREE.Vector3(  x-41.25, y-71.25, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '49.5px',new THREE.Vector3(  x-16, y-54.75, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+            
+                var t = 554.5;
+                
+                floor1Wals.add(new f1w( h, '78px',new THREE.Vector3( x+t-276.5, y+25.5, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                floor1Wals.add(new f1w(h, '34px',new THREE.Vector3(  x+t-34-276.5+17, y+25.5+38.5, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                floor1Wals.add(new f1w(h, '36px',new THREE.Vector3(  x+t-276.5+18-36, y+25.5+38.5-77.5, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                floor1Wals.add(new f1w(h, '58px',new THREE.Vector3(  x+154+61, y+25.5+38.5+13, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '13px',new THREE.Vector3(  x+210+34, y+70.5, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '10px',new THREE.Vector3(  x+206.4+36, y-8.3, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '20px',new THREE.Vector3(  x+196.5+36, y-3, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '27px',new THREE.Vector3(  x+196+26.5, y-16.5, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '70px',new THREE.Vector3(  x+188, y-30, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //               other room
+                floor1Wals.add(new f1w(h, '77.5px',new THREE.Vector3(  x+187, y-80, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '36px',new THREE.Vector3(  x+169, y-41.5, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '36px',new THREE.Vector3(  x+169, y-119, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '13px',new THREE.Vector3(  x+152, y-35.5, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '10px',new THREE.Vector3(  x+151, y-114, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '20.5px',new THREE.Vector3(  x+141, y-109, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '27px',new THREE.Vector3(  x+131, y-122.5, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '85px',new THREE.Vector3(  x+88.5, y-136, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '54.5px',new THREE.Vector3(  x+46, y-163, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '77.5px',new THREE.Vector3(  x+111.5, y+185.3, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '40.5px',new THREE.Vector3(  x+73, y+165, z+125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+            
+                floor1Wals.add(new f1w(h, '40.5px',new THREE.Vector3(  x+150, y+165, z+125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '10px',new THREE.Vector3(  x+78.5, y+145, z+125), new THREE.Vector3(  90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '20.5px',new THREE.Vector3(  x+159, y+92, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '19px',new THREE.Vector3(  x+159, y+146, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '31px',new THREE.Vector3(  x+68.8, y+128, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '31px',new THREE.Vector3(  x+68.8, y+43, z+125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '54px',new THREE.Vector3(  x+168.5, y+119, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '85.5px',new THREE.Vector3(  x+54, y+85, z+125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor1Wals.add(new f1w(h, '18px',new THREE.Vector3(  x+83, y+137, z+125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '20px',new THREE.Vector3(  x+83.3, y+33, z+125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '88px',new THREE.Vector3(  x+24, y+42.5, z+125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '65px',new THREE.Vector3(  x+54, y+11, z+125), new THREE.Vector3( 90*Math.PI/180,22.5*Math.PI/180, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '15px',new THREE.Vector3(  x+148, y+85.5, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '16px',new THREE.Vector3(  x+186, y+69, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '14.5px',new THREE.Vector3(  x+180, y+61, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '12px',new THREE.Vector3(  x+154, y+61, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '13px',new THREE.Vector3(  x+166, y+54, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '11px',new THREE.Vector3(  x+143, y+71.5, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '11px',new THREE.Vector3(  x+143, y+78.5, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '7px',new THREE.Vector3(  x+138, y+75, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '15px',new THREE.Vector3(  x+148.5, y+64, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '7px',new THREE.Vector3(  x+160, y+57.5, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '7px',new THREE.Vector3(  x+172.5, y+57.5, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '19px',new THREE.Vector3(  x+139, y+56.5, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '19px',new THREE.Vector3(  x+139, y+42, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '14px',new THREE.Vector3(  x+148.5, y+49, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '14px',new THREE.Vector3(  x+129.5, y+49, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '25px',new THREE.Vector3(  x+117, y+42.5, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '29px',new THREE.Vector3(  x+119.5, y+24, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '18px',new THREE.Vector3(  x+134, y+33, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                
+                floor1Wals.add(new f1w(h, '18px',new THREE.Vector3(  x+105, y+33, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '80px',new THREE.Vector3(  x+54, y-15.5, z+125), new THREE.Vector3( 90*Math.PI/180,21.5*Math.PI/180, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '45px',new THREE.Vector3(  x+113, y-1, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '42px',new THREE.Vector3(  x+114.5, y-28.5, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '13px',new THREE.Vector3(  x+87, y-44, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '13.5px',new THREE.Vector3(  x+63.25, y-44.5, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //
+                floor1Wals.add(new f1w(h, '11px',new THREE.Vector3(  x+75, y-52, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '14px',new THREE.Vector3(  x+49.25, y-63, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '25px',new THREE.Vector3(  x+29.65, y-79.5, z+125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor1Wals.add(new f1w(h, '27.5px',new THREE.Vector3(  x+135.5, y-14.75, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '15.5px',new THREE.Vector3(  x+93.5, y-36.25, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '8px',new THREE.Vector3(  x+80.5, y-48, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '8px',new THREE.Vector3(  x+69.5, y-48, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '18.5px',new THREE.Vector3(  x+56.25, y-53.75, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '17px',new THREE.Vector3(  x+42.25, y-71.25, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor1Wals.add(new f1w(h, '49.5px',new THREE.Vector3(  x+17, y-54.75, z+125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                scene.add(floor1Wals);
+                
+                
+                
+                var floor2Wals = new THREE.Group();
+                floor2Wals.name = "floor2Wals"
+                
+                floor2Wals.add(new f2w(h, '78px',new THREE.Vector3(  x-276.5, y+25.5, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                
+                floor2Wals.add(new f2w(h, '34px',new THREE.Vector3(  x-276.5+17, y+25.5+38.5, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '36px',new THREE.Vector3(  x-276.5+18, y+25.5+38.5-77.5, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '58px',new THREE.Vector3(  x-273+59, y+25.5+38.5+13, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '13px',new THREE.Vector3(  x-276.5+34, y+70.5, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '10px',new THREE.Vector3(  x-277+36, y-8, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '20.5px',new THREE.Vector3(  x-273+41, y-3, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '27px',new THREE.Vector3(  x-277+55.5, y-16.5, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '70px',new THREE.Vector3(  x-186.5, y-30, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+//                other room
+                floor2Wals.add(new f2w(h, '77.5px',new THREE.Vector3(  x-276.5+100.5-10, y-80.5, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '34px',new THREE.Vector3(  x-186+17, y-41.5, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '36px',new THREE.Vector3(  x-168, y-119, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+            
+                
+                floor2Wals.add(new f2w(h, '13px',new THREE.Vector3(  x-150, y-35.5, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                
+                floor2Wals.add(new f2w(h, '10px',new THREE.Vector3(  x-150, y-114, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '20.5px',new THREE.Vector3(  x-140, y-109, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                
+                floor2Wals.add(new f2w(h, '27px',new THREE.Vector3(  x-130, y-122.5, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '85px',new THREE.Vector3(  x-87.5, y-136, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                 floor2Wals.add(new f2w(h, '54.5px',new THREE.Vector3(  x-45, y-163, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '91px',new THREE.Vector3(  x+0.5, y-190, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                
+                //                other room
+                floor2Wals.add(new f2w(h, '77px',new THREE.Vector3(  x-110.5, y+185.3, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '40.5px',new THREE.Vector3(  x-72, y+165, z+375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+            
+                floor2Wals.add(new f2w(h, '40.5px',new THREE.Vector3(  x-149, y+165, z+375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '19px',new THREE.Vector3(  x-158, y+146, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '10px',new THREE.Vector3(  x-77.5, y+145, z+375), new THREE.Vector3(  90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '20.5px',new THREE.Vector3(  x-158, y+92, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '31px',new THREE.Vector3(  x-67.8, y+128, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '31px',new THREE.Vector3(  x-67.8, y+43, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '54px',new THREE.Vector3(  x-167.5, y+119, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '85.5px',new THREE.Vector3(  x-53, y+85, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '18px',new THREE.Vector3(  x-82, y+137, z+375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '20px',new THREE.Vector3(  x-82.3, y+33, z+375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '88px',new THREE.Vector3(  x-23, y+42.5, z+375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '46.5px',new THREE.Vector3(  x+0.5, y+86, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '65px',new THREE.Vector3(  x-53, y+11, z+375), new THREE.Vector3( 90*Math.PI/180,157.5*Math.PI/180, 90*Math.PI/180)));
+        
+                floor2Wals.add(new f2w(h, '15px',new THREE.Vector3(  x-147, y+85.5, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '16px',new THREE.Vector3(  x-185, y+69, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '14.5px',new THREE.Vector3(  x-179, y+61, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '12px',new THREE.Vector3(  x-153, y+61, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '13px',new THREE.Vector3(  x-165, y+54, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '11px',new THREE.Vector3(  x-142, y+71.5, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '11px',new THREE.Vector3(  x-142, y+78.5, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '7px',new THREE.Vector3(  x-137, y+75, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '15px',new THREE.Vector3(  x-147.5, y+64, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '7px',new THREE.Vector3(  x-159, y+57.5, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '7px',new THREE.Vector3(  x-171.5, y+57.5, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '19px',new THREE.Vector3(  x-138, y+56.5, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                 floor2Wals.add(new f2w(h, '19px',new THREE.Vector3(  x-138, y+42, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '14px',new THREE.Vector3(  x-147.5, y+49, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '14px',new THREE.Vector3(  x-128.5, y+49, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '25px',new THREE.Vector3(  x-116, y+42.5, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '29px',new THREE.Vector3(  x-118.5, y+24, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '18px',new THREE.Vector3(  x-133, y+33, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '18px',new THREE.Vector3(  x-104, y+33, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '80px',new THREE.Vector3(  x-53, y-15.5, z+375), new THREE.Vector3( 90*Math.PI/180,158.5*Math.PI/180, 90*Math.PI/180)));
+                
+                
+                floor2Wals.add(new f2w(h, '45px',new THREE.Vector3(  x-112, y-1, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '42px',new THREE.Vector3(  x-113.5, y-28.5, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '13px',new THREE.Vector3(  x-86, y-44, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+        
+                floor2Wals.add(new f2w(h, '13.5px',new THREE.Vector3(  x-62.25, y-44.5, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //
+                floor2Wals.add(new f2w(h, '11px',new THREE.Vector3(  x-74, y-52, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '14px',new THREE.Vector3(  x-48.25, y-63, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '25px',new THREE.Vector3(  x-28.65, y-79.5, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '27.5px',new THREE.Vector3(  x-134.5, y-14.75, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '15.5px',new THREE.Vector3(  x-92.5, y-36.25, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '8px',new THREE.Vector3(  x-79.5, y-48, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '8px',new THREE.Vector3(  x-68.5, y-48, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '18.5px',new THREE.Vector3(  x-55.25, y-53.75, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '17px',new THREE.Vector3(  x-41.25, y-71.25, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '49.5px',new THREE.Vector3(  x-16, y-54.75, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+            
+                var t = 554.5;
+                
+                floor2Wals.add(new f2w( h, '78px',new THREE.Vector3( x+t-276.5, y+25.5, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                floor2Wals.add(new f2w(h, '34px',new THREE.Vector3(  x+t-34-276.5+17, y+25.5+38.5, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                floor2Wals.add(new f2w(h, '36px',new THREE.Vector3(  x+t-276.5+18-36, y+25.5+38.5-77.5, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                floor2Wals.add(new f2w(h, '58px',new THREE.Vector3(  x+154+61, y+25.5+38.5+13, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '13px',new THREE.Vector3(  x+210+34, y+70.5, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '10px',new THREE.Vector3(  x+206.4+36, y-8.3, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '20px',new THREE.Vector3(  x+196.5+36, y-3, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '27px',new THREE.Vector3(  x+196+26.5, y-16.5, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '70px',new THREE.Vector3(  x+188, y-30, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //               other room
+                floor2Wals.add(new f2w(h, '77.5px',new THREE.Vector3(  x+187, y-80, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '36px',new THREE.Vector3(  x+169, y-41.5, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '36px',new THREE.Vector3(  x+169, y-119, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '13px',new THREE.Vector3(  x+152, y-35.5, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '10px',new THREE.Vector3(  x+151, y-114, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '20.5px',new THREE.Vector3(  x+141, y-109, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '27px',new THREE.Vector3(  x+131, y-122.5, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '85px',new THREE.Vector3(  x+88.5, y-136, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '54.5px',new THREE.Vector3(  x+46, y-163, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '77.5px',new THREE.Vector3(  x+111.5, y+185.3, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '40.5px',new THREE.Vector3(  x+73, y+165, z+375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+            
+                floor2Wals.add(new f2w(h, '40.5px',new THREE.Vector3(  x+150, y+165, z+375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '10px',new THREE.Vector3(  x+78.5, y+145, z+375), new THREE.Vector3(  90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '20.5px',new THREE.Vector3(  x+159, y+92, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '19px',new THREE.Vector3(  x+159, y+146, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '31px',new THREE.Vector3(  x+68.8, y+128, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '31px',new THREE.Vector3(  x+68.8, y+43, z+375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '54px',new THREE.Vector3(  x+168.5, y+119, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '85.5px',new THREE.Vector3(  x+54, y+85, z+375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor2Wals.add(new f2w(h, '18px',new THREE.Vector3(  x+83, y+137, z+375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '20px',new THREE.Vector3(  x+83.3, y+33, z+375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '88px',new THREE.Vector3(  x+24, y+42.5, z+375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '65px',new THREE.Vector3(  x+54, y+11, z+375), new THREE.Vector3( 90*Math.PI/180,22.5*Math.PI/180, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '15px',new THREE.Vector3(  x+148, y+85.5, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '16px',new THREE.Vector3(  x+186, y+69, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '14.5px',new THREE.Vector3(  x+180, y+61, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '12px',new THREE.Vector3(  x+154, y+61, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '13px',new THREE.Vector3(  x+166, y+54, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '11px',new THREE.Vector3(  x+143, y+71.5, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '11px',new THREE.Vector3(  x+143, y+78.5, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '7px',new THREE.Vector3(  x+138, y+75, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '15px',new THREE.Vector3(  x+148.5, y+64, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '7px',new THREE.Vector3(  x+160, y+57.5, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '7px',new THREE.Vector3(  x+172.5, y+57.5, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '19px',new THREE.Vector3(  x+139, y+56.5, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '19px',new THREE.Vector3(  x+139, y+42, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '14px',new THREE.Vector3(  x+148.5, y+49, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '14px',new THREE.Vector3(  x+129.5, y+49, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '25px',new THREE.Vector3(  x+117, y+42.5, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '29px',new THREE.Vector3(  x+119.5, y+24, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '18px',new THREE.Vector3(  x+134, y+33, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                
+                floor2Wals.add(new f2w(h, '18px',new THREE.Vector3(  x+105, y+33, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '80px',new THREE.Vector3(  x+54, y-15.5, z+375), new THREE.Vector3( 90*Math.PI/180,21.5*Math.PI/180, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '45px',new THREE.Vector3(  x+113, y-1, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '42px',new THREE.Vector3(  x+114.5, y-28.5, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '13px',new THREE.Vector3(  x+87, y-44, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '13.5px',new THREE.Vector3(  x+63.25, y-44.5, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //
+                floor2Wals.add(new f2w(h, '11px',new THREE.Vector3(  x+75, y-52, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '14px',new THREE.Vector3(  x+49.25, y-63, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '25px',new THREE.Vector3(  x+29.65, y-79.5, z+375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor2Wals.add(new f2w(h, '27.5px',new THREE.Vector3(  x+135.5, y-14.75, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '15.5px',new THREE.Vector3(  x+93.5, y-36.25, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '8px',new THREE.Vector3(  x+80.5, y-48, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '8px',new THREE.Vector3(  x+69.5, y-48, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '18.5px',new THREE.Vector3(  x+56.25, y-53.75, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '17px',new THREE.Vector3(  x+42.25, y-71.25, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor2Wals.add(new f2w(h, '49.5px',new THREE.Vector3(  x+17, y-54.75, z+375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                scene.add(floor2Wals);
+                
+                
+                var floor3Wals = new THREE.Group();
+                floor3Wals.name = "floor3Wals"
+                
+                floor3Wals.add(new f3w(h, '78px',new THREE.Vector3(  x-276.5, y+25.5, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                
+                floor3Wals.add(new f3w(h, '34px',new THREE.Vector3(  x-276.5+17, y+25.5+38.5, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '36px',new THREE.Vector3(  x-276.5+18, y+25.5+38.5-77.5, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '58px',new THREE.Vector3(  x-273+59, y+25.5+38.5+13, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '13px',new THREE.Vector3(  x-276.5+34, y+70.5, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '10px',new THREE.Vector3(  x-277+36, y-8, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '20.5px',new THREE.Vector3(  x-273+41, y-3, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '27px',new THREE.Vector3(  x-277+55.5, y-16.5, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '70px',new THREE.Vector3(  x-186.5, y-30, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+//                other room
+                floor3Wals.add(new f3w(h, '77.5px',new THREE.Vector3(  x-276.5+100.5-10, y-80.5, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '34px',new THREE.Vector3(  x-186+17, y-41.5, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '36px',new THREE.Vector3(  x-168, y-119, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+            
+                
+                floor3Wals.add(new f3w(h, '13px',new THREE.Vector3(  x-150, y-35.5, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                
+                floor3Wals.add(new f3w(h, '10px',new THREE.Vector3(  x-150, y-114, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '20.5px',new THREE.Vector3(  x-140, y-109, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                
+                floor3Wals.add(new f3w(h, '27px',new THREE.Vector3(  x-130, y-122.5, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '85px',new THREE.Vector3(  x-87.5, y-136, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                 floor3Wals.add(new f3w(h, '54.5px',new THREE.Vector3(  x-45, y-163, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '91px',new THREE.Vector3(  x+0.5, y-190, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                
+                //                other room
+                floor3Wals.add(new f3w(h, '77px',new THREE.Vector3(  x-110.5, y+185.3, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '40.5px',new THREE.Vector3(  x-72, y+165, z+625), new THREE.Vector3( 0,90*Math.PI/180,0)));
+            
+                floor3Wals.add(new f3w(h, '40.5px',new THREE.Vector3(  x-149, y+165, z+625), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '19px',new THREE.Vector3(  x-158, y+146, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '10px',new THREE.Vector3(  x-77.5, y+145, z+625), new THREE.Vector3(  90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '20.5px',new THREE.Vector3(  x-158, y+92, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '31px',new THREE.Vector3(  x-67.8, y+128, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '31px',new THREE.Vector3(  x-67.8, y+43, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '54px',new THREE.Vector3(  x-167.5, y+119, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '85.5px',new THREE.Vector3(  x-53, y+85, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '18px',new THREE.Vector3(  x-82, y+137, z+625), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '20px',new THREE.Vector3(  x-82.3, y+33, z+625), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '88px',new THREE.Vector3(  x-23, y+42.5, z+625), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '46.5px',new THREE.Vector3(  x+0.5, y+86, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '65px',new THREE.Vector3(  x-53, y+11, z+625), new THREE.Vector3( 90*Math.PI/180,157.5*Math.PI/180, 90*Math.PI/180)));
+        
+                floor3Wals.add(new f3w(h, '15px',new THREE.Vector3(  x-147, y+85.5, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '16px',new THREE.Vector3(  x-185, y+69, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '14.5px',new THREE.Vector3(  x-179, y+61, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '12px',new THREE.Vector3(  x-153, y+61, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '13px',new THREE.Vector3(  x-165, y+54, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '11px',new THREE.Vector3(  x-142, y+71.5, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '11px',new THREE.Vector3(  x-142, y+78.5, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '7px',new THREE.Vector3(  x-137, y+75, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '15px',new THREE.Vector3(  x-147.5, y+64, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '7px',new THREE.Vector3(  x-159, y+57.5, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '7px',new THREE.Vector3(  x-171.5, y+57.5, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '19px',new THREE.Vector3(  x-138, y+56.5, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                 floor3Wals.add(new f3w(h, '19px',new THREE.Vector3(  x-138, y+42, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '14px',new THREE.Vector3(  x-147.5, y+49, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '14px',new THREE.Vector3(  x-128.5, y+49, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '25px',new THREE.Vector3(  x-116, y+42.5, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '29px',new THREE.Vector3(  x-118.5, y+24, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '18px',new THREE.Vector3(  x-133, y+33, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '18px',new THREE.Vector3(  x-104, y+33, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '80px',new THREE.Vector3(  x-53, y-15.5, z+625), new THREE.Vector3( 90*Math.PI/180,158.5*Math.PI/180, 90*Math.PI/180)));
+                
+                
+                floor3Wals.add(new f3w(h, '45px',new THREE.Vector3(  x-112, y-1, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '42px',new THREE.Vector3(  x-113.5, y-28.5, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '13px',new THREE.Vector3(  x-86, y-44, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+        
+                floor3Wals.add(new f3w(h, '13.5px',new THREE.Vector3(  x-62.25, y-44.5, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //
+                floor3Wals.add(new f3w(h, '11px',new THREE.Vector3(  x-74, y-52, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '14px',new THREE.Vector3(  x-48.25, y-63, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '25px',new THREE.Vector3(  x-28.65, y-79.5, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '27.5px',new THREE.Vector3(  x-134.5, y-14.75, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '15.5px',new THREE.Vector3(  x-92.5, y-36.25, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '8px',new THREE.Vector3(  x-79.5, y-48, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '8px',new THREE.Vector3(  x-68.5, y-48, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '18.5px',new THREE.Vector3(  x-55.25, y-53.75, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '17px',new THREE.Vector3(  x-41.25, y-71.25, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '49.5px',new THREE.Vector3(  x-16, y-54.75, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+            
+                var t = 554.5;
+                
+                floor3Wals.add(new f3w( h, '78px',new THREE.Vector3( x+t-276.5, y+25.5, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                floor3Wals.add(new f3w(h, '34px',new THREE.Vector3(  x+t-34-276.5+17, y+25.5+38.5, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                floor3Wals.add(new f3w(h, '36px',new THREE.Vector3(  x+t-276.5+18-36, y+25.5+38.5-77.5, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                floor3Wals.add(new f3w(h, '58px',new THREE.Vector3(  x+154+61, y+25.5+38.5+13, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '13px',new THREE.Vector3(  x+210+34, y+70.5, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '10px',new THREE.Vector3(  x+206.4+36, y-8.3, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '20px',new THREE.Vector3(  x+196.5+36, y-3, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '27px',new THREE.Vector3(  x+196+26.5, y-16.5, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '70px',new THREE.Vector3(  x+188, y-30, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //               other room
+                floor3Wals.add(new f3w(h, '77.5px',new THREE.Vector3(  x+187, y-80, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '36px',new THREE.Vector3(  x+169, y-41.5, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '36px',new THREE.Vector3(  x+169, y-119, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '13px',new THREE.Vector3(  x+152, y-35.5, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '10px',new THREE.Vector3(  x+151, y-114, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '20.5px',new THREE.Vector3(  x+141, y-109, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '27px',new THREE.Vector3(  x+131, y-122.5, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '85px',new THREE.Vector3(  x+88.5, y-136, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '54.5px',new THREE.Vector3(  x+46, y-163, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '77.5px',new THREE.Vector3(  x+111.5, y+185.3, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '40.5px',new THREE.Vector3(  x+73, y+165, z+625), new THREE.Vector3( 0,90*Math.PI/180,0)));
+            
+                floor3Wals.add(new f3w(h, '40.5px',new THREE.Vector3(  x+150, y+165, z+625), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '10px',new THREE.Vector3(  x+78.5, y+145, z+625), new THREE.Vector3(  90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '20.5px',new THREE.Vector3(  x+159, y+92, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '19px',new THREE.Vector3(  x+159, y+146, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '31px',new THREE.Vector3(  x+68.8, y+128, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '31px',new THREE.Vector3(  x+68.8, y+43, z+625), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '54px',new THREE.Vector3(  x+168.5, y+119, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '85.5px',new THREE.Vector3(  x+54, y+85, z+625), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor3Wals.add(new f3w(h, '18px',new THREE.Vector3(  x+83, y+137, z+625), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '20px',new THREE.Vector3(  x+83.3, y+33, z+625), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '88px',new THREE.Vector3(  x+24, y+42.5, z+625), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '65px',new THREE.Vector3(  x+54, y+11, z+625), new THREE.Vector3( 90*Math.PI/180,22.5*Math.PI/180, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '15px',new THREE.Vector3(  x+148, y+85.5, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '16px',new THREE.Vector3(  x+186, y+69, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '14.5px',new THREE.Vector3(  x+180, y+61, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '12px',new THREE.Vector3(  x+154, y+61, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '13px',new THREE.Vector3(  x+166, y+54, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '11px',new THREE.Vector3(  x+143, y+71.5, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '11px',new THREE.Vector3(  x+143, y+78.5, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '7px',new THREE.Vector3(  x+138, y+75, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '15px',new THREE.Vector3(  x+148.5, y+64, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '7px',new THREE.Vector3(  x+160, y+57.5, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '7px',new THREE.Vector3(  x+172.5, y+57.5, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '19px',new THREE.Vector3(  x+139, y+56.5, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '19px',new THREE.Vector3(  x+139, y+42, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '14px',new THREE.Vector3(  x+148.5, y+49, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '14px',new THREE.Vector3(  x+129.5, y+49, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '25px',new THREE.Vector3(  x+117, y+42.5, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '29px',new THREE.Vector3(  x+119.5, y+24, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '18px',new THREE.Vector3(  x+134, y+33, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                
+                floor3Wals.add(new f3w(h, '18px',new THREE.Vector3(  x+105, y+33, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '80px',new THREE.Vector3(  x+54, y-15.5, z+625), new THREE.Vector3( 90*Math.PI/180,21.5*Math.PI/180, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '45px',new THREE.Vector3(  x+113, y-1, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '42px',new THREE.Vector3(  x+114.5, y-28.5, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '13px',new THREE.Vector3(  x+87, y-44, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '13.5px',new THREE.Vector3(  x+63.25, y-44.5, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //
+                floor3Wals.add(new f3w(h, '11px',new THREE.Vector3(  x+75, y-52, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '14px',new THREE.Vector3(  x+49.25, y-63, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '25px',new THREE.Vector3(  x+29.65, y-79.5, z+625), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor3Wals.add(new f3w(h, '27.5px',new THREE.Vector3(  x+135.5, y-14.75, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '15.5px',new THREE.Vector3(  x+93.5, y-36.25, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '8px',new THREE.Vector3(  x+80.5, y-48, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '8px',new THREE.Vector3(  x+69.5, y-48, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '18.5px',new THREE.Vector3(  x+56.25, y-53.75, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '17px',new THREE.Vector3(  x+42.25, y-71.25, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor3Wals.add(new f3w(h, '49.5px',new THREE.Vector3(  x+17, y-54.75, z+625), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                scene.add(floor3Wals);
+                
+                
+                
+                
+                var floor4Wals = new THREE.Group();
+                floor4Wals.name = "floor4Wals"
+                
+                floor4Wals.add(new f4w(h, '78px',new THREE.Vector3(  x-276.5, y+25.5, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                
+                floor4Wals.add(new f4w(h, '34px',new THREE.Vector3(  x-276.5+17, y+25.5+38.5, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '36px',new THREE.Vector3(  x-276.5+18, y+25.5+38.5-77.5, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '58px',new THREE.Vector3(  x-273+59, y+25.5+38.5+13, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '13px',new THREE.Vector3(  x-276.5+34, y+70.5, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '10px',new THREE.Vector3(  x-277+36, y-8, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '20.5px',new THREE.Vector3(  x-273+41, y-3, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '27px',new THREE.Vector3(  x-277+55.5, y-16.5, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '70px',new THREE.Vector3(  x-186.5, y-30, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+//                other room
+                floor4Wals.add(new f4w(h, '77.5px',new THREE.Vector3(  x-276.5+100.5-10, y-80.5, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '34px',new THREE.Vector3(  x-186+17, y-41.5, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '36px',new THREE.Vector3(  x-168, y-119, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+            
+                
+                floor4Wals.add(new f4w(h, '13px',new THREE.Vector3(  x-150, y-35.5, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                
+                floor4Wals.add(new f4w(h, '10px',new THREE.Vector3(  x-150, y-114, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '20.5px',new THREE.Vector3(  x-140, y-109, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                
+                floor4Wals.add(new f4w(h, '27px',new THREE.Vector3(  x-130, y-122.5, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '85px',new THREE.Vector3(  x-87.5, y-136, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                 floor4Wals.add(new f4w(h, '54.5px',new THREE.Vector3(  x-45, y-163, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '91px',new THREE.Vector3(  x+0.5, y-190, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                
+                //                other room
+                floor4Wals.add(new f4w(h, '77px',new THREE.Vector3(  x-110.5, y+185.3, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '40.5px',new THREE.Vector3(  x-72, y+165, z+875), new THREE.Vector3( 0,90*Math.PI/180,0)));
+            
+                floor4Wals.add(new f4w(h, '40.5px',new THREE.Vector3(  x-149, y+165, z+875), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '19px',new THREE.Vector3(  x-158, y+146, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '10px',new THREE.Vector3(  x-77.5, y+145, z+875), new THREE.Vector3(  90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '20.5px',new THREE.Vector3(  x-158, y+92, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '31px',new THREE.Vector3(  x-67.8, y+128, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '31px',new THREE.Vector3(  x-67.8, y+43, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '54px',new THREE.Vector3(  x-167.5, y+119, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '85.5px',new THREE.Vector3(  x-53, y+85, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '18px',new THREE.Vector3(  x-82, y+137, z+875), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '20px',new THREE.Vector3(  x-82.3, y+33, z+875), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '88px',new THREE.Vector3(  x-23, y+42.5, z+875), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '46.5px',new THREE.Vector3(  x+0.5, y+86, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '65px',new THREE.Vector3(  x-53, y+11, z+875), new THREE.Vector3( 90*Math.PI/180,157.5*Math.PI/180, 90*Math.PI/180)));
+        
+                floor4Wals.add(new f4w(h, '15px',new THREE.Vector3(  x-147, y+85.5, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '16px',new THREE.Vector3(  x-185, y+69, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '14.5px',new THREE.Vector3(  x-179, y+61, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '12px',new THREE.Vector3(  x-153, y+61, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '13px',new THREE.Vector3(  x-165, y+54, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '11px',new THREE.Vector3(  x-142, y+71.5, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '11px',new THREE.Vector3(  x-142, y+78.5, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '7px',new THREE.Vector3(  x-137, y+75, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '15px',new THREE.Vector3(  x-147.5, y+64, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '7px',new THREE.Vector3(  x-159, y+57.5, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '7px',new THREE.Vector3(  x-171.5, y+57.5, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '19px',new THREE.Vector3(  x-138, y+56.5, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                 floor4Wals.add(new f4w(h, '19px',new THREE.Vector3(  x-138, y+42, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '14px',new THREE.Vector3(  x-147.5, y+49, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '14px',new THREE.Vector3(  x-128.5, y+49, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '25px',new THREE.Vector3(  x-116, y+42.5, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '29px',new THREE.Vector3(  x-118.5, y+24, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '18px',new THREE.Vector3(  x-133, y+33, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '18px',new THREE.Vector3(  x-104, y+33, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '80px',new THREE.Vector3(  x-53, y-15.5, z+875), new THREE.Vector3( 90*Math.PI/180,158.5*Math.PI/180, 90*Math.PI/180)));
+                
+                
+                floor4Wals.add(new f4w(h, '45px',new THREE.Vector3(  x-112, y-1, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '42px',new THREE.Vector3(  x-113.5, y-28.5, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '13px',new THREE.Vector3(  x-86, y-44, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+        
+                floor4Wals.add(new f4w(h, '13.5px',new THREE.Vector3(  x-62.25, y-44.5, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //
+                floor4Wals.add(new f4w(h, '11px',new THREE.Vector3(  x-74, y-52, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '14px',new THREE.Vector3(  x-48.25, y-63, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '25px',new THREE.Vector3(  x-28.65, y-79.5, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '27.5px',new THREE.Vector3(  x-134.5, y-14.75, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '15.5px',new THREE.Vector3(  x-92.5, y-36.25, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '8px',new THREE.Vector3(  x-79.5, y-48, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '8px',new THREE.Vector3(  x-68.5, y-48, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '18.5px',new THREE.Vector3(  x-55.25, y-53.75, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '17px',new THREE.Vector3(  x-41.25, y-71.25, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '49.5px',new THREE.Vector3(  x-16, y-54.75, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+            
+                var t = 554.5;
+                
+                floor4Wals.add(new f4w( h, '78px',new THREE.Vector3( x+t-276.5, y+25.5, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                floor4Wals.add(new f4w(h, '34px',new THREE.Vector3(  x+t-34-276.5+17, y+25.5+38.5, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                floor4Wals.add(new f4w(h, '36px',new THREE.Vector3(  x+t-276.5+18-36, y+25.5+38.5-77.5, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                floor4Wals.add(new f4w(h, '58px',new THREE.Vector3(  x+154+61, y+25.5+38.5+13, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '13px',new THREE.Vector3(  x+210+34, y+70.5, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '10px',new THREE.Vector3(  x+206.4+36, y-8.3, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '20px',new THREE.Vector3(  x+196.5+36, y-3, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '27px',new THREE.Vector3(  x+196+26.5, y-16.5, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '70px',new THREE.Vector3(  x+188, y-30, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //               other room
+                floor4Wals.add(new f4w(h, '77.5px',new THREE.Vector3(  x+187, y-80, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '36px',new THREE.Vector3(  x+169, y-41.5, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '36px',new THREE.Vector3(  x+169, y-119, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '13px',new THREE.Vector3(  x+152, y-35.5, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '10px',new THREE.Vector3(  x+151, y-114, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '20.5px',new THREE.Vector3(  x+141, y-109, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '27px',new THREE.Vector3(  x+131, y-122.5, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '85px',new THREE.Vector3(  x+88.5, y-136, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '54.5px',new THREE.Vector3(  x+46, y-163, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '77.5px',new THREE.Vector3(  x+111.5, y+185.3, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '40.5px',new THREE.Vector3(  x+73, y+165, z+875), new THREE.Vector3( 0,90*Math.PI/180,0)));
+            
+                floor4Wals.add(new f4w(h, '40.5px',new THREE.Vector3(  x+150, y+165, z+875), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '10px',new THREE.Vector3(  x+78.5, y+145, z+875), new THREE.Vector3(  90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '20.5px',new THREE.Vector3(  x+159, y+92, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '19px',new THREE.Vector3(  x+159, y+146, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '31px',new THREE.Vector3(  x+68.8, y+128, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '31px',new THREE.Vector3(  x+68.8, y+43, z+875), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '54px',new THREE.Vector3(  x+168.5, y+119, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '85.5px',new THREE.Vector3(  x+54, y+85, z+875), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor4Wals.add(new f4w(h, '18px',new THREE.Vector3(  x+83, y+137, z+875), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '20px',new THREE.Vector3(  x+83.3, y+33, z+875), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '88px',new THREE.Vector3(  x+24, y+42.5, z+875), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '65px',new THREE.Vector3(  x+54, y+11, z+875), new THREE.Vector3( 90*Math.PI/180,22.5*Math.PI/180, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '15px',new THREE.Vector3(  x+148, y+85.5, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '16px',new THREE.Vector3(  x+186, y+69, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '14.5px',new THREE.Vector3(  x+180, y+61, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '12px',new THREE.Vector3(  x+154, y+61, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '13px',new THREE.Vector3(  x+166, y+54, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '11px',new THREE.Vector3(  x+143, y+71.5, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '11px',new THREE.Vector3(  x+143, y+78.5, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '7px',new THREE.Vector3(  x+138, y+75, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '15px',new THREE.Vector3(  x+148.5, y+64, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '7px',new THREE.Vector3(  x+160, y+57.5, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '7px',new THREE.Vector3(  x+172.5, y+57.5, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '19px',new THREE.Vector3(  x+139, y+56.5, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '19px',new THREE.Vector3(  x+139, y+42, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '14px',new THREE.Vector3(  x+148.5, y+49, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '14px',new THREE.Vector3(  x+129.5, y+49, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '25px',new THREE.Vector3(  x+117, y+42.5, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '29px',new THREE.Vector3(  x+119.5, y+24, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '18px',new THREE.Vector3(  x+134, y+33, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                
+                floor4Wals.add(new f4w(h, '18px',new THREE.Vector3(  x+105, y+33, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '80px',new THREE.Vector3(  x+54, y-15.5, z+875), new THREE.Vector3( 90*Math.PI/180,21.5*Math.PI/180, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '45px',new THREE.Vector3(  x+113, y-1, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '42px',new THREE.Vector3(  x+114.5, y-28.5, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '13px',new THREE.Vector3(  x+87, y-44, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '13.5px',new THREE.Vector3(  x+63.25, y-44.5, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //
+                floor4Wals.add(new f4w(h, '11px',new THREE.Vector3(  x+75, y-52, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '14px',new THREE.Vector3(  x+49.25, y-63, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '25px',new THREE.Vector3(  x+29.65, y-79.5, z+875), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor4Wals.add(new f4w(h, '27.5px',new THREE.Vector3(  x+135.5, y-14.75, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '15.5px',new THREE.Vector3(  x+93.5, y-36.25, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '8px',new THREE.Vector3(  x+80.5, y-48, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '8px',new THREE.Vector3(  x+69.5, y-48, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '18.5px',new THREE.Vector3(  x+56.25, y-53.75, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '17px',new THREE.Vector3(  x+42.25, y-71.25, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor4Wals.add(new f4w(h, '49.5px',new THREE.Vector3(  x+17, y-54.75, z+875), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                scene.add(floor4Wals);
+                
+                
+                var floor5Wals = new THREE.Group();
+                floor5Wals.name = "floor5Wals"
+                
+                floor5Wals.add(new f5w(h, '78px',new THREE.Vector3(  x-276.5, y+25.5, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                
+                floor5Wals.add(new f5w(h, '34px',new THREE.Vector3(  x-276.5+17, y+25.5+38.5, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '36px',new THREE.Vector3(  x-276.5+18, y+25.5+38.5-77.5, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '58px',new THREE.Vector3(  x-273+59, y+25.5+38.5+13, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '13px',new THREE.Vector3(  x-276.5+34, y+70.5, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '10px',new THREE.Vector3(  x-277+36, y-8, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '20.5px',new THREE.Vector3(  x-273+41, y-3, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '27px',new THREE.Vector3(  x-277+55.5, y-16.5, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '70px',new THREE.Vector3(  x-186.5, y-30, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+//                other room
+                floor5Wals.add(new f5w(h, '77.5px',new THREE.Vector3(  x-276.5+100.5-10, y-80.5, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '34px',new THREE.Vector3(  x-186+17, y-41.5, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '36px',new THREE.Vector3(  x-168, y-119, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+            
+                
+                floor5Wals.add(new f5w(h, '13px',new THREE.Vector3(  x-150, y-35.5, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                
+                floor5Wals.add(new f5w(h, '10px',new THREE.Vector3(  x-150, y-114, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '20.5px',new THREE.Vector3(  x-140, y-109, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                
+                floor5Wals.add(new f5w(h, '27px',new THREE.Vector3(  x-130, y-122.5, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '85px',new THREE.Vector3(  x-87.5, y-136, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                 floor5Wals.add(new f5w(h, '54.5px',new THREE.Vector3(  x-45, y-163, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '91px',new THREE.Vector3(  x+0.5, y-190, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                
+                //                other room
+                floor5Wals.add(new f5w(h, '77px',new THREE.Vector3(  x-110.5, y+185.3, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '40.5px',new THREE.Vector3(  x-72, y+165, z+1125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+            
+                floor5Wals.add(new f5w(h, '40.5px',new THREE.Vector3(  x-149, y+165, z+1125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '19px',new THREE.Vector3(  x-158, y+146, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '10px',new THREE.Vector3(  x-77.5, y+145, z+1125), new THREE.Vector3(  90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '20.5px',new THREE.Vector3(  x-158, y+92, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '31px',new THREE.Vector3(  x-67.8, y+128, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '31px',new THREE.Vector3(  x-67.8, y+43, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '54px',new THREE.Vector3(  x-167.5, y+119, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '85.5px',new THREE.Vector3(  x-53, y+85, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '18px',new THREE.Vector3(  x-82, y+137, z+1125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '20px',new THREE.Vector3(  x-82.3, y+33, z+1125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '88px',new THREE.Vector3(  x-23, y+42.5, z+1125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '46.5px',new THREE.Vector3(  x+0.5, y+86, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '65px',new THREE.Vector3(  x-53, y+11, z+1125), new THREE.Vector3( 90*Math.PI/180,157.5*Math.PI/180, 90*Math.PI/180)));
+        
+                floor5Wals.add(new f5w(h, '15px',new THREE.Vector3(  x-147, y+85.5, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '16px',new THREE.Vector3(  x-185, y+69, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '14.5px',new THREE.Vector3(  x-179, y+61, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '12px',new THREE.Vector3(  x-153, y+61, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '13px',new THREE.Vector3(  x-165, y+54, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '11px',new THREE.Vector3(  x-142, y+71.5, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '11px',new THREE.Vector3(  x-142, y+78.5, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '7px',new THREE.Vector3(  x-137, y+75, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '15px',new THREE.Vector3(  x-147.5, y+64, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '7px',new THREE.Vector3(  x-159, y+57.5, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '7px',new THREE.Vector3(  x-171.5, y+57.5, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '19px',new THREE.Vector3(  x-138, y+56.5, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                 floor5Wals.add(new f5w(h, '19px',new THREE.Vector3(  x-138, y+42, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '14px',new THREE.Vector3(  x-147.5, y+49, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '14px',new THREE.Vector3(  x-128.5, y+49, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '25px',new THREE.Vector3(  x-116, y+42.5, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '29px',new THREE.Vector3(  x-118.5, y+24, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '18px',new THREE.Vector3(  x-133, y+33, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '18px',new THREE.Vector3(  x-104, y+33, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '80px',new THREE.Vector3(  x-53, y-15.5, z+1125), new THREE.Vector3( 90*Math.PI/180,158.5*Math.PI/180, 90*Math.PI/180)));
+                
+                
+                floor5Wals.add(new f5w(h, '45px',new THREE.Vector3(  x-112, y-1, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '42px',new THREE.Vector3(  x-113.5, y-28.5, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '13px',new THREE.Vector3(  x-86, y-44, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+        
+                floor5Wals.add(new f5w(h, '13.5px',new THREE.Vector3(  x-62.25, y-44.5, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //
+                floor5Wals.add(new f5w(h, '11px',new THREE.Vector3(  x-74, y-52, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '14px',new THREE.Vector3(  x-48.25, y-63, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '25px',new THREE.Vector3(  x-28.65, y-79.5, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '27.5px',new THREE.Vector3(  x-134.5, y-14.75, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '15.5px',new THREE.Vector3(  x-92.5, y-36.25, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '8px',new THREE.Vector3(  x-79.5, y-48, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '8px',new THREE.Vector3(  x-68.5, y-48, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '18.5px',new THREE.Vector3(  x-55.25, y-53.75, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '17px',new THREE.Vector3(  x-41.25, y-71.25, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '49.5px',new THREE.Vector3(  x-16, y-54.75, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+            
+                var t = 554.5;
+                
+                floor5Wals.add(new f5w( h, '78px',new THREE.Vector3( x+t-276.5, y+25.5, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                floor5Wals.add(new f5w(h, '34px',new THREE.Vector3(  x+t-34-276.5+17, y+25.5+38.5, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                floor5Wals.add(new f5w(h, '36px',new THREE.Vector3(  x+t-276.5+18-36, y+25.5+38.5-77.5, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                floor5Wals.add(new f5w(h, '58px',new THREE.Vector3(  x+154+61, y+25.5+38.5+13, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '13px',new THREE.Vector3(  x+210+34, y+70.5, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '10px',new THREE.Vector3(  x+206.4+36, y-8.3, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '20px',new THREE.Vector3(  x+196.5+36, y-3, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '27px',new THREE.Vector3(  x+196+26.5, y-16.5, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '70px',new THREE.Vector3(  x+188, y-30, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //               other room
+                floor5Wals.add(new f5w(h, '77.5px',new THREE.Vector3(  x+187, y-80, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '36px',new THREE.Vector3(  x+169, y-41.5, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '36px',new THREE.Vector3(  x+169, y-119, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '13px',new THREE.Vector3(  x+152, y-35.5, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '10px',new THREE.Vector3(  x+151, y-114, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '20.5px',new THREE.Vector3(  x+141, y-109, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '27px',new THREE.Vector3(  x+131, y-122.5, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '85px',new THREE.Vector3(  x+88.5, y-136, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '54.5px',new THREE.Vector3(  x+46, y-163, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '77.5px',new THREE.Vector3(  x+111.5, y+185.3, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '40.5px',new THREE.Vector3(  x+73, y+165, z+1125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+            
+                floor5Wals.add(new f5w(h, '40.5px',new THREE.Vector3(  x+150, y+165, z+1125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '10px',new THREE.Vector3(  x+78.5, y+145, z+1125), new THREE.Vector3(  90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '20.5px',new THREE.Vector3(  x+159, y+92, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '19px',new THREE.Vector3(  x+159, y+146, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '31px',new THREE.Vector3(  x+68.8, y+128, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '31px',new THREE.Vector3(  x+68.8, y+43, z+1125), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '54px',new THREE.Vector3(  x+168.5, y+119, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '85.5px',new THREE.Vector3(  x+54, y+85, z+1125), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor5Wals.add(new f5w(h, '18px',new THREE.Vector3(  x+83, y+137, z+1125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '20px',new THREE.Vector3(  x+83.3, y+33, z+1125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '88px',new THREE.Vector3(  x+24, y+42.5, z+1125), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '65px',new THREE.Vector3(  x+54, y+11, z+1125), new THREE.Vector3( 90*Math.PI/180,22.5*Math.PI/180, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '15px',new THREE.Vector3(  x+148, y+85.5, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '16px',new THREE.Vector3(  x+186, y+69, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '14.5px',new THREE.Vector3(  x+180, y+61, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '12px',new THREE.Vector3(  x+154, y+61, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '13px',new THREE.Vector3(  x+166, y+54, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '11px',new THREE.Vector3(  x+143, y+71.5, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '11px',new THREE.Vector3(  x+143, y+78.5, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '7px',new THREE.Vector3(  x+138, y+75, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '15px',new THREE.Vector3(  x+148.5, y+64, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '7px',new THREE.Vector3(  x+160, y+57.5, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '7px',new THREE.Vector3(  x+172.5, y+57.5, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '19px',new THREE.Vector3(  x+139, y+56.5, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '19px',new THREE.Vector3(  x+139, y+42, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '14px',new THREE.Vector3(  x+148.5, y+49, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '14px',new THREE.Vector3(  x+129.5, y+49, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '25px',new THREE.Vector3(  x+117, y+42.5, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '29px',new THREE.Vector3(  x+119.5, y+24, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '18px',new THREE.Vector3(  x+134, y+33, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                
+                floor5Wals.add(new f5w(h, '18px',new THREE.Vector3(  x+105, y+33, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '80px',new THREE.Vector3(  x+54, y-15.5, z+1125), new THREE.Vector3( 90*Math.PI/180,21.5*Math.PI/180, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '45px',new THREE.Vector3(  x+113, y-1, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '42px',new THREE.Vector3(  x+114.5, y-28.5, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '13px',new THREE.Vector3(  x+87, y-44, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '13.5px',new THREE.Vector3(  x+63.25, y-44.5, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //
+                floor5Wals.add(new f5w(h, '11px',new THREE.Vector3(  x+75, y-52, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '14px',new THREE.Vector3(  x+49.25, y-63, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '25px',new THREE.Vector3(  x+29.65, y-79.5, z+1125), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor5Wals.add(new f5w(h, '27.5px',new THREE.Vector3(  x+135.5, y-14.75, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '15.5px',new THREE.Vector3(  x+93.5, y-36.25, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '8px',new THREE.Vector3(  x+80.5, y-48, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '8px',new THREE.Vector3(  x+69.5, y-48, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '18.5px',new THREE.Vector3(  x+56.25, y-53.75, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '17px',new THREE.Vector3(  x+42.25, y-71.25, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor5Wals.add(new f5w(h, '49.5px',new THREE.Vector3(  x+17, y-54.75, z+1125), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                scene.add(floor5Wals);
+                
+                var floor6Wals = new THREE.Group();
+                floor6Wals.name = "floor6Wals"
+                
+                floor6Wals.add(new f6w(h, '78px',new THREE.Vector3(  x-276.5, y+25.5, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                
+                floor6Wals.add(new f6w(h, '34px',new THREE.Vector3(  x-276.5+17, y+25.5+38.5, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '36px',new THREE.Vector3(  x-276.5+18, y+25.5+38.5-77.5, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '58px',new THREE.Vector3(  x-273+59, y+25.5+38.5+13, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '13px',new THREE.Vector3(  x-276.5+34, y+70.5, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '10px',new THREE.Vector3(  x-277+36, y-8, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '20.5px',new THREE.Vector3(  x-273+41, y-3, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '27px',new THREE.Vector3(  x-277+55.5, y-16.5, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '70px',new THREE.Vector3(  x-186.5, y-30, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+//                other room
+                floor6Wals.add(new f6w(h, '77.5px',new THREE.Vector3(  x-276.5+100.5-10, y-80.5, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '34px',new THREE.Vector3(  x-186+17, y-41.5, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '36px',new THREE.Vector3(  x-168, y-119, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+            
+                
+                floor6Wals.add(new f6w(h, '13px',new THREE.Vector3(  x-150, y-35.5, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                
+                floor6Wals.add(new f6w(h, '10px',new THREE.Vector3(  x-150, y-114, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '20.5px',new THREE.Vector3(  x-140, y-109, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                
+                floor6Wals.add(new f6w(h, '27px',new THREE.Vector3(  x-130, y-122.5, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '85px',new THREE.Vector3(  x-87.5, y-136, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                 floor6Wals.add(new f6w(h, '54.5px',new THREE.Vector3(  x-45, y-163, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '91px',new THREE.Vector3(  x+0.5, y-190, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                
+                //                other room
+                floor6Wals.add(new f6w(h, '77px',new THREE.Vector3(  x-110.5, y+185.3, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '40.5px',new THREE.Vector3(  x-72, y+165, z+1375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+            
+                floor6Wals.add(new f6w(h, '40.5px',new THREE.Vector3(  x-149, y+165, z+1375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '19px',new THREE.Vector3(  x-158, y+146, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '10px',new THREE.Vector3(  x-77.5, y+145, z+1375), new THREE.Vector3(  90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '20.5px',new THREE.Vector3(  x-158, y+92, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '31px',new THREE.Vector3(  x-67.8, y+128, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '31px',new THREE.Vector3(  x-67.8, y+43, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '54px',new THREE.Vector3(  x-167.5, y+119, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '85.5px',new THREE.Vector3(  x-53, y+85, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '18px',new THREE.Vector3(  x-82, y+137, z+1375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '20px',new THREE.Vector3(  x-82.3, y+33, z+1375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '88px',new THREE.Vector3(  x-23, y+42.5, z+1375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '46.5px',new THREE.Vector3(  x+0.5, y+86, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '65px',new THREE.Vector3(  x-53, y+11, z+1375), new THREE.Vector3( 90*Math.PI/180,157.5*Math.PI/180, 90*Math.PI/180)));
+        
+                floor6Wals.add(new f6w(h, '15px',new THREE.Vector3(  x-147, y+85.5, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '16px',new THREE.Vector3(  x-185, y+69, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '14.5px',new THREE.Vector3(  x-179, y+61, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '12px',new THREE.Vector3(  x-153, y+61, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '13px',new THREE.Vector3(  x-165, y+54, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '11px',new THREE.Vector3(  x-142, y+71.5, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '11px',new THREE.Vector3(  x-142, y+78.5, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '7px',new THREE.Vector3(  x-137, y+75, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '15px',new THREE.Vector3(  x-147.5, y+64, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '7px',new THREE.Vector3(  x-159, y+57.5, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '7px',new THREE.Vector3(  x-171.5, y+57.5, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '19px',new THREE.Vector3(  x-138, y+56.5, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                 floor6Wals.add(new f6w(h, '19px',new THREE.Vector3(  x-138, y+42, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '14px',new THREE.Vector3(  x-147.5, y+49, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '14px',new THREE.Vector3(  x-128.5, y+49, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '25px',new THREE.Vector3(  x-116, y+42.5, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '29px',new THREE.Vector3(  x-118.5, y+24, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '18px',new THREE.Vector3(  x-133, y+33, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '18px',new THREE.Vector3(  x-104, y+33, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '80px',new THREE.Vector3(  x-53, y-15.5, z+1375), new THREE.Vector3( 90*Math.PI/180,158.5*Math.PI/180, 90*Math.PI/180)));
+                
+                
+                floor6Wals.add(new f6w(h, '45px',new THREE.Vector3(  x-112, y-1, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '42px',new THREE.Vector3(  x-113.5, y-28.5, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '13px',new THREE.Vector3(  x-86, y-44, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+        
+                floor6Wals.add(new f6w(h, '13.5px',new THREE.Vector3(  x-62.25, y-44.5, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //
+                floor6Wals.add(new f6w(h, '11px',new THREE.Vector3(  x-74, y-52, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '14px',new THREE.Vector3(  x-48.25, y-63, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '25px',new THREE.Vector3(  x-28.65, y-79.5, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '27.5px',new THREE.Vector3(  x-134.5, y-14.75, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '15.5px',new THREE.Vector3(  x-92.5, y-36.25, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '8px',new THREE.Vector3(  x-79.5, y-48, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '8px',new THREE.Vector3(  x-68.5, y-48, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '18.5px',new THREE.Vector3(  x-55.25, y-53.75, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '17px',new THREE.Vector3(  x-41.25, y-71.25, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '49.5px',new THREE.Vector3(  x-16, y-54.75, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+            
+                var t = 554.5;
+                
+                floor6Wals.add(new f6w( h, '78px',new THREE.Vector3( x+t-276.5, y+25.5, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                floor6Wals.add(new f6w(h, '34px',new THREE.Vector3(  x+t-34-276.5+17, y+25.5+38.5, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                floor6Wals.add(new f6w(h, '36px',new THREE.Vector3(  x+t-276.5+18-36, y+25.5+38.5-77.5, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                floor6Wals.add(new f6w(h, '58px',new THREE.Vector3(  x+154+61, y+25.5+38.5+13, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '13px',new THREE.Vector3(  x+210+34, y+70.5, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '10px',new THREE.Vector3(  x+206.4+36, y-8.3, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '20px',new THREE.Vector3(  x+196.5+36, y-3, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '27px',new THREE.Vector3(  x+196+26.5, y-16.5, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '70px',new THREE.Vector3(  x+188, y-30, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //               other room
+                floor6Wals.add(new f6w(h, '77.5px',new THREE.Vector3(  x+187, y-80, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '36px',new THREE.Vector3(  x+169, y-41.5, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '36px',new THREE.Vector3(  x+169, y-119, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '13px',new THREE.Vector3(  x+152, y-35.5, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '10px',new THREE.Vector3(  x+151, y-114, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '20.5px',new THREE.Vector3(  x+141, y-109, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '27px',new THREE.Vector3(  x+131, y-122.5, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '85px',new THREE.Vector3(  x+88.5, y-136, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '54.5px',new THREE.Vector3(  x+46, y-163, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '77.5px',new THREE.Vector3(  x+111.5, y+185.3, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '40.5px',new THREE.Vector3(  x+73, y+165, z+1375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+            
+                floor6Wals.add(new f6w(h, '40.5px',new THREE.Vector3(  x+150, y+165, z+1375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '10px',new THREE.Vector3(  x+78.5, y+145, z+1375), new THREE.Vector3(  90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '20.5px',new THREE.Vector3(  x+159, y+92, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '19px',new THREE.Vector3(  x+159, y+146, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '31px',new THREE.Vector3(  x+68.8, y+128, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '31px',new THREE.Vector3(  x+68.8, y+43, z+1375), new THREE.Vector3( 90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '54px',new THREE.Vector3(  x+168.5, y+119, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '85.5px',new THREE.Vector3(  x+54, y+85, z+1375), new THREE.Vector3( 0,90*Math.PI/180, z)));
+                
+                floor6Wals.add(new f6w(h, '18px',new THREE.Vector3(  x+83, y+137, z+1375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '20px',new THREE.Vector3(  x+83.3, y+33, z+1375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '88px',new THREE.Vector3(  x+24, y+42.5, z+1375), new THREE.Vector3( 0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '65px',new THREE.Vector3(  x+54, y+11, z+1375), new THREE.Vector3( 90*Math.PI/180,22.5*Math.PI/180, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '15px',new THREE.Vector3(  x+148, y+85.5, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '16px',new THREE.Vector3(  x+186, y+69, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '14.5px',new THREE.Vector3(  x+180, y+61, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '12px',new THREE.Vector3(  x+154, y+61, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '13px',new THREE.Vector3(  x+166, y+54, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '11px',new THREE.Vector3(  x+143, y+71.5, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '11px',new THREE.Vector3(  x+143, y+78.5, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '7px',new THREE.Vector3(  x+138, y+75, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '15px',new THREE.Vector3(  x+148.5, y+64, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '7px',new THREE.Vector3(  x+160, y+57.5, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '7px',new THREE.Vector3(  x+172.5, y+57.5, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '19px',new THREE.Vector3(  x+139, y+56.5, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '19px',new THREE.Vector3(  x+139, y+42, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '14px',new THREE.Vector3(  x+148.5, y+49, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '14px',new THREE.Vector3(  x+129.5, y+49, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '25px',new THREE.Vector3(  x+117, y+42.5, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '29px',new THREE.Vector3(  x+119.5, y+24, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '18px',new THREE.Vector3(  x+134, y+33, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                
+                floor6Wals.add(new f6w(h, '18px',new THREE.Vector3(  x+105, y+33, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '80px',new THREE.Vector3(  x+54, y-15.5, z+1375), new THREE.Vector3( 90*Math.PI/180,21.5*Math.PI/180, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '45px',new THREE.Vector3(  x+113, y-1, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '42px',new THREE.Vector3(  x+114.5, y-28.5, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '13px',new THREE.Vector3(  x+87, y-44, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '13.5px',new THREE.Vector3(  x+63.25, y-44.5, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                //
+                floor6Wals.add(new f6w(h, '11px',new THREE.Vector3(  x+75, y-52, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '14px',new THREE.Vector3(  x+49.25, y-63, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '25px',new THREE.Vector3(  x+29.65, y-79.5, z+1375), new THREE.Vector3(90*Math.PI/180,0, 90*Math.PI/180)));
+                
+                floor6Wals.add(new f6w(h, '27.5px',new THREE.Vector3(  x+135.5, y-14.75, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '15.5px',new THREE.Vector3(  x+93.5, y-36.25, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '8px',new THREE.Vector3(  x+80.5, y-48, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '8px',new THREE.Vector3(  x+69.5, y-48, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '18.5px',new THREE.Vector3(  x+56.25, y-53.75, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '17px',new THREE.Vector3(  x+42.25, y-71.25, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                floor6Wals.add(new f6w(h, '49.5px',new THREE.Vector3(  x+17, y-54.75, z+1375), new THREE.Vector3(0,90*Math.PI/180,0)));
+                
+                scene.add(floor6Wals);
+                
+                controls = new THREE.TrackballControls(camera);
+
+
+                window.addEventListener( 'resize', onWindowResize, false);
+                
+                var blocker = document.getElementById('blocker');
+                blocker.style.display = '';
+                
+                document .addEventListener( 'mousedown', function(){
+                    blocker.style.display = '';
+                });
+                document.addEventListener( 'mouseup', function(){
+                    blocker.style.display = '';
+                });
+                document.addEventListener( 'click', function(){
+                    blocker.style.display = 'none';
+                });
+            }
+            
+            function onWindowResize(){
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+            
+            
+            function animate(){
+                requestAnimationFrame(animate);
+                controls.update();
+                renderer.render( scene, camera);
+            }
+            
+         
+          
+            
+        </script>
+        
+    </body>
+</html>
+
+
