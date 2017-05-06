@@ -1,0 +1,49 @@
+function C5(){return {x:30,y:157,value:values[]}};
+            function C4(){return {x:30,y:195,value:values[]}};
+            function C6(){return {x:63,y:139,value:values[]}};
+            function C7(){return {x:90,y:139,value:values[]}};
+            function C3(){return {x:83,y:210,value:values[]}};
+            function C2(){return {x:112,y:210,value:values[]}};
+            function C1(){return {x:140,y:210,value:values[]}};
+            
+            function B5(){return {x:122,y:260,value:values[]}};
+            function B4(){return {x:122,y:300,value:values[]}};
+            function B6(){return {x:152,y:244,value:values[]}};
+            function B7(){return {x:182,y:244,value:values[]}};
+            function B3(){return {x:174,y:315,value:values[]}};
+            function B2(){return {x:203,y:315,value:values[]}};
+            function B1(){return {x:231,y:315,value:values[]}};
+            
+            function D5(){return {x:165,y:32,value:values[]}};
+            function D4(){return {x:202,y:32,value:values[]}};
+            function D6(){return {x:143,y:65,value:values[]}};
+            function D7(){return {x:143,y:91,value:values[]}};
+            function D3(){return {x:217,y:84,value:values[]}};
+            function D2(){return {x:217,y:111,value:values[]}};
+            function D1(){return {x:217,y:140,value:values[]}};
+            
+            var os = 2*290;
+            
+            function F5(){return {x:os-30,y:157,value:values[]}};
+            function F4(){return {x:os-30,y:195,value:values[]}};
+            function F6(){return {x:os-63,y:139,value:values[]}};
+            function F7(){return {x:os-90,y:139,value:values[]}};
+            function F3(){return {x:os-83,y:210,value:values[]}};
+            function F2(){return {x:os-112,y:210,value:values[]}};
+            function F1(){return {x:os-140,y:210,value:values[]}};
+            
+            function A5(){return {x:os-122,y:260,value:values[]}};
+            function A4(){return {x:os-122,y:300,value:values[]}};
+            function A6(){return {x:os-152,y:244,value:values[]}};
+            function A7(){return {x:os-182,y:244,value:values[]}};
+            function A3(){return {x:os-174,y:315,value:values[]}};
+            function A2(){return {x:os-203,y:315,value:values[]}};
+            function A1(){return {x:os-231,y:315,value:values[]}};
+            
+            function E5(){return {x:os-165,y:32,value:values[]}};
+            function E4(){return {x:os-202,y:32,value:values[]}};
+            function E6(){return {x:os-143,y:65,value:values[]}};
+            function E7(){return {x:os-143,y:91,value:values[]}};
+            function E3(){return {x:os-217,y:84,value:values[]}};
+            function E2(){return {x:os-217,y:111,value:values[]}};
+            function E1(){return {x:os-217,y:140,value:values[]}};

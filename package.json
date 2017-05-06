@@ -1,0 +1,30 @@
+{
+    "name": "heatmapcoa",
+    "version": "1.0.0",
+    "description": "Well check this out",
+    "main": "server.js",
+    "dependencies": {
+        "express": "^4.15.2",
+        "johnny-five": "^0.10.10",
+        "pouchdb": "^6.2.0",
+        "socket.io": "^1.7.3"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/vinay2051/heatmapOfEnergy.git"
+    },
+    "keywords": [
+    "coa"
+  ],
+    "author": "vinay arun sridhama yashwanth swaran",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/vinay2051/heatmapOfEnergy/issues"
+    },
+    "homepage": "https://github.com/vinay2051/heatmapOfEnergy#readme"
+}

@@ -1,0 +1,594 @@
+socket.on('121F',function(){
+                if(B1_room.fan === true){
+                B1_val -= 100;
+                B1.value = B1_val;
+                heatmapInstance.setData(data);
+                B1_room.fan = false;
+                return;
+                }
+                if(B1_room.fan === false){
+                B1_val += 100;
+                B1.value = B1_val;
+                heatmapInstance.setData(data);
+                B1_room.fan = true;
+                return;
+                }
+            });
+            
+            socket.on('121L',function(){
+                if(B1_room.light === true){
+                B1_val -= 100;
+                B1.value = B1_val;
+                heatmapInstance.setData(data);
+                B1_room.light = false;
+                return;
+                }
+                if(B1_room.light === false){
+                B1_val += 100;
+                B1.value = B1_val;
+                heatmapInstance.setData(data);
+                B1_room.light = true;
+                return;
+                }
+            });
+            
+            socket.on('121A',function(){
+                if(B1_room.ac === true){
+                B1_val -= 100;
+                B1.value = B1_val;
+                heatmapInstance.setData(data);
+                B1_room.ac = false;
+                return;
+                }
+                if(B1_room.ac === false){
+                B1_val += 100;
+                B1.value = B1_val;
+                heatmapInstance.setData(data);
+                B1_room.ac = true;
+                return;
+                }
+            });
+            
+            socket.on('121M',function(){
+                if(B1_room.plug1 === true){
+                B1_val -= 100;
+                B1.value = B1_val;
+                heatmapInstance.setData(data);
+                B1_room.plug1 = false;
+                return;
+                }
+                if(B1_room.plug1 === false){
+                B1_val += 100;
+                B1.value = B1_val;
+                heatmapInstance.setData(data);
+                B1_room.plug1 = true;
+                return;
+                }
+            });
+            
+            socket.on('121N',function(){
+                if(B1_room.plug2 === true){
+                B1_val -= 100;
+                B1.value = B1_val;
+                heatmapInstance.setData(data);
+                B1_room.plug2 = false;
+                return;
+                }
+                if(B1_room.plug2 === false){
+                B1_val += 100;
+                B1.value = B1_val;
+                heatmapInstance.setData(data);
+                B1_room.plug2 = true;
+                return;
+                }
+            });
+            
+            socket.on('122F',function(){
+                if(B2_room.fan === true){
+                B2_val -= 100;
+                B2.value = B2_val;
+                heatmapInstance.setData(data);
+                B2_room.fan = false;
+                return;
+                }
+                if(B2_room.fan === false){
+                B2_val += 100;
+                B2.value = B2_val;
+                heatmapInstance.setData(data);
+                B2_room.fan = true;
+                return;
+                }
+            });
+            
+            socket.on('122L',function(){
+                if(B2_room.light === true){
+                B2_val -= 100;
+                B2.value = B2_val;
+                heatmapInstance.setData(data);
+                B2_room.light = false;
+                return;
+                }
+                if(B2_room.light === false){
+                B2_val += 100;
+                B2.value = B2_val;
+                heatmapInstance.setData(data);
+                B2_room.light = true;
+                return;
+                }
+            });
+            
+            socket.on('122A',function(){
+                if(B2_room.ac === true){
+                B2_val -= 100;
+                B2.value = B2_val;
+                heatmapInstance.setData(data);
+                B2_room.ac = false;
+                return;
+                }
+                if(B2_room.ac === false){
+                B2_val += 100;
+                B2.value = B2_val;
+                heatmapInstance.setData(data);
+                B2_room.ac = true;
+                return;
+                }
+            });
+            
+            socket.on('122M',function(){
+                if(B2_room.plug1 === true){
+                B2_val -= 100;
+                B2.value = B2_val;
+                heatmapInstance.setData(data);
+                B2_room.plug1 = false;
+                return;
+                }
+                if(B2_room.plug1 === false){
+                B2_val += 100;
+                B2.value = B2_val;
+                heatmapInstance.setData(data);
+                B2_room.plug1 = true;
+                return;
+                }
+            });
+            
+            socket.on('122N',function(){
+                if(B2_room.plug2 === true){
+                B2_val -= 100;
+                B2.value = B2_val;
+                heatmapInstance.setData(data);
+                B2_room.plug2 = false;
+                return;
+                }
+                if(B2_room.plug2 === false){
+                B2_val += 100;
+                B2.value = B2_val;
+                heatmapInstance.setData(data);
+                B2_room.plug2 = true;
+                return;
+                }
+            });
+            
+            socket.on('123F',function(){
+                if(B3_room.fan === true){
+                B3_val -= 100;
+                B3.value = B3_val;
+                heatmapInstance.setData(data);
+                B3_room.fan = false;
+                return;
+                }
+                if(B3_room.fan === false){
+                B3_val += 100;
+                B3.value = B3_val;
+                heatmapInstance.setData(data);
+                B3_room.fan = true;
+                return;
+                }
+            });
+            
+            socket.on('123L',function(){
+                if(B3_room.light === true){
+                B3_val -= 100;
+                B3.value = B3_val;
+                heatmapInstance.setData(data);
+                B3_room.light = false;
+                return;
+                }
+                if(B3_room.light === false){
+                B3_val += 100;
+                B3.value = B3_val;
+                heatmapInstance.setData(data);
+                B3_room.light = true;
+                return;
+                }
+            });
+            
+            socket.on('123A',function(){
+                if(B3_room.ac === true){
+                B3_val -= 100;
+                B3.value = B3_val;
+                heatmapInstance.setData(data);
+                B3_room.ac = false;
+                return;
+                }
+                if(B3_room.ac === false){
+                B3_val += 100;
+                B3.value = B3_val;
+                heatmapInstance.setData(data);
+                B3_room.ac = true;
+                return;
+                }
+            });
+            
+            socket.on('123M',function(){
+                if(B3_room.plug1 === true){
+                B3_val -= 100;
+                B3.value = B3_val;
+                heatmapInstance.setData(data);
+                B3_room.plug1 = false;
+                return;
+                }
+                if(B3_room.plug1 === false){
+                B3_val += 100;
+                B3.value = B3_val;
+                heatmapInstance.setData(data);
+                B3_room.plug1 = true;
+                return;
+                }
+            });
+            
+            socket.on('123N',function(){
+                if(B3_room.plug2 === true){
+                B3_val -= 100;
+                B3.value = B3_val;
+                heatmapInstance.setData(data);
+                B3_room.plug2 = false;
+                return;
+                }
+                if(B3_room.plug2 === false){
+                B3_val += 100;
+                B3.value = B3_val;
+                heatmapInstance.setData(data);
+                B3_room.plug2 = true;
+                return;
+                }
+            });
+            
+            socket.on('124F',function(){
+                if(B4_room.fan === true){
+                B4_val -= 100;
+                B4.value = B4_val;
+                heatmapInstance.setData(data);
+                B4_room.fan = false;
+                return;
+                }
+                if(B4_room.fan === false){
+                B4_val += 100;
+                B4.value = B4_val;
+                heatmapInstance.setData(data);
+                B4_room.fan = true;
+                return;
+                }
+            });
+            
+            socket.on('124L',function(){
+                if(B4_room.light === true){
+                B4_val -= 100;
+                B4.value = B4_val;
+                heatmapInstance.setData(data);
+                B4_room.light = false;
+                return;
+                }
+                if(B4_room.light === false){
+                B4_val += 100;
+                B4.value = B4_val;
+                heatmapInstance.setData(data);
+                B4_room.light = true;
+                return;
+                }
+            });
+            
+            socket.on('124A',function(){
+                if(B4_room.ac === true){
+                B4_val -= 100;
+                B4.value = B4_val;
+                heatmapInstance.setData(data);
+                B4_room.ac = false;
+                return;
+                }
+                if(B4_room.ac === false){
+                B4_val += 100;
+                B4.value = B4_val;
+                heatmapInstance.setData(data);
+                B4_room.ac = true;
+                return;
+                }
+            });
+            
+            socket.on('124M',function(){
+                if(B4_room.plug1 === true){
+                B4_val -= 100;
+                B4.value = B4_val;
+                heatmapInstance.setData(data);
+                B4_room.plug1 = false;
+                return;
+                }
+                if(B4_room.plug1 === false){
+                B4_val += 100;
+                B4.value = B4_val;
+                heatmapInstance.setData(data);
+                B4_room.plug1 = true;
+                return;
+                }
+            });
+            
+            socket.on('124N',function(){
+                if(B4_room.plug2 === true){
+                B4_val -= 100;
+                B4.value = B4_val;
+                heatmapInstance.setData(data);
+                B4_room.plug2 = false;
+                return;
+                }
+                if(B4_room.plug2 === false){
+                B4_val += 100;
+                B4.value = B4_val;
+                heatmapInstance.setData(data);
+                B4_room.plug2 = true;
+                return;
+                }
+            });
+            
+            socket.on('125F',function(){
+                if(B5_room.fan === true){
+                B5_val -= 100;
+                B5.value = B5_val;
+                heatmapInstance.setData(data);
+                B5_room.fan = false;
+                return;
+                }
+                if(B5_room.fan === false){
+                B5_val += 100;
+                B5.value = B5_val;
+                heatmapInstance.setData(data);
+                B5_room.fan = true;
+                return;
+                }
+            });
+            
+            socket.on('125L',function(){
+                if(B5_room.light === true){
+                B5_val -= 100;
+                B5.value = B5_val;
+                heatmapInstance.setData(data);
+                B5_room.light = false;
+                return;
+                }
+                if(B5_room.light === false){
+                B5_val += 100;
+                B5.value = B5_val;
+                heatmapInstance.setData(data);
+                B5_room.light = true;
+                return;
+                }
+            });
+            
+            socket.on('125A',function(){
+                if(B5_room.ac === true){
+                B5_val -= 100;
+                B5.value = B5_val;
+                heatmapInstance.setData(data);
+                B5_room.ac = false;
+                return;
+                }
+                if(B5_room.ac === false){
+                B5_val += 100;
+                B5.value = B5_val;
+                heatmapInstance.setData(data);
+                B5_room.ac = true;
+                return;
+                }
+            });
+            
+            socket.on('125M',function(){
+                if(B5_room.plug1 === true){
+                B5_val -= 100;
+                B5.value = B5_val;
+                heatmapInstance.setData(data);
+                B5_room.plug1 = false;
+                return;
+                }
+                if(B5_room.plug1 === false){
+                B5_val += 100;
+                B5.value = B5_val;
+                heatmapInstance.setData(data);
+                B5_room.plug1 = true;
+                return;
+                }
+            });
+            
+            socket.on('125N',function(){
+                if(B5_room.plug2 === true){
+                B5_val -= 100;
+                B5.value = B5_val;
+                heatmapInstance.setData(data);
+                B5_room.plug2 = false;
+                return;
+                }
+                if(B5_room.plug2 === false){
+                B5_val += 100;
+                B5.value = B5_val;
+                heatmapInstance.setData(data);
+                B5_room.plug2 = true;
+                return;
+                }
+            });
+            
+            socket.on('126F',function(){
+                if(room.fan === true){
+                val -= 100;
+                B6.value = val;
+                heatmapInstance.setData(data);
+                room.fan = false;
+                return;
+                }
+                if(room.fan === false){
+                val += 100;
+                B6.value = val;
+                heatmapInstance.setData(data);
+                room.fan = true;
+                return;
+                }
+            });
+            
+            socket.on('126L',function(){
+                if(room.light === true){
+                val -= 100;
+                B6.value = val;
+                heatmapInstance.setData(data);
+                room.light = false;
+                return;
+                }
+                if(room.light === false){
+                val += 100;
+                B6.value = val;
+                heatmapInstance.setData(data);
+                room.light = true;
+                return;
+                }
+            });
+            
+            socket.on('126A',function(){
+                if(room.ac === true){
+                val -= 100;
+                B6.value = val;
+                heatmapInstance.setData(data);
+                room.ac = false;
+                return;
+                }
+                if(room.ac === false){
+                val += 100;
+                B6.value = val;
+                heatmapInstance.setData(data);
+                room.ac = true;
+                return;
+                }
+            });
+            
+            socket.on('126M',function(){
+                if(room.plug1 === true){
+                val -= 100;
+                B6.value = val;
+                heatmapInstance.setData(data);
+                room.plug1 = false;
+                return;
+                }
+                if(room.plug1 === false){
+                val += 100;
+                B6.value = val;
+                heatmapInstance.setData(data);
+                room.plug1 = true;
+                return;
+                }
+            });
+            
+            socket.on('126N',function(){
+                if(room.plug2 === true){
+                val -= 100;
+                B6.value = val;
+                heatmapInstance.setData(data);
+                room.plug2 = false;
+                return;
+                }
+                if(room.plug2 === false){
+                val += 100;
+                B6.value = val;
+                heatmapInstance.setData(data);
+                room.plug2 = true;
+                return;
+                }
+            });
+            
+            socket.on('127F',function(){
+                if(B7_room.fan === true){
+                B7_val -= 100;
+                B7.value = B7_val;
+                heatmapInstance.setData(data);
+                B7_room.fan = false;
+                return;
+                }
+                if(B7_room.fan === false){
+                B7_val += 100;
+                B7.value = B7_val;
+                heatmapInstance.setData(data);
+                B7_room.fan = true;
+                return;
+                }
+            });
+            
+            socket.on('127L',function(){
+                if(B7_room.light === true){
+                B7_val -= 100;
+                B7.value = B7_val;
+                heatmapInstance.setData(data);
+                B7_room.light = false;
+                return;
+                }
+                if(B7_room.light === false){
+                B7_val += 100;
+                B7.value = B7_val;
+                heatmapInstance.setData(data);
+                B7_room.light = true;
+                return;
+                }
+            });
+            
+            socket.on('127A',function(){
+                if(B7_room.ac === true){
+                B7_val -= 100;
+                B7.value = B7_val;
+                heatmapInstance.setData(data);
+                B7_room.ac = false;
+                return;
+                }
+                if(B7_room.ac === false){
+                B7_val += 100;
+                B7.value = B7_val;
+                heatmapInstance.setData(data);
+                B7_room.ac = true;
+                return;
+                }
+            });
+            
+            socket.on('127M',function(){
+                if(B7_room.plug1 === true){
+                B7_val -= 100;
+                B7.value = B7_val;
+                heatmapInstance.setData(data);
+                B7_room.plug1 = false;
+                return;
+                }
+                if(B7_room.plug1 === false){
+                B7_val += 100;
+                B7.value = B7_val;
+                heatmapInstance.setData(data);
+                B7_room.plug1 = true;
+                return;
+                }
+            });
+            
+            socket.on('127N',function(){
+                if(B7_room.plug2 === true){
+                B7_val -= 100;
+                B7.value = B7_val;
+                heatmapInstance.setData(data);
+                B7_room.plug2 = false;
+                return;
+                }
+                if(B7_room.plug2 === false){
+                B7_val += 100;
+                B7.value = B7_val;
+                heatmapInstance.setData(data);
+                B7_room.plug2 = true;
+                return;
+                }
+            });
